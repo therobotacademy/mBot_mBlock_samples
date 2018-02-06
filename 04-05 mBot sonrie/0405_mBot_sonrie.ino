@@ -1,0 +1,46 @@
+/***   Included libraries  ***/
+#include <BitbloqMBot.h>
+#include <BitbloqMeLEDMatrix.h>
+#include <BitbloqUS.h>
+
+
+/***   Global variables and function definition  ***/
+BitbloqMBot robot;
+BitbloqMeLEDMatrix MatrizLEDS( BitbloqMCore::ports[1][1], BitbloqMCore::ports[1][2]);
+const int sensor_de_sonido = BitbloqMCore::ports[4][2];
+BitbloqUltrasound ultrasonidos( BitbloqMCore::ports[3][2], BitbloqMCore::ports[3][2]);
+const int siguelineas_1 = BitbloqMCore::ports[2][1];
+const int siguelineas_2 = BitbloqMCore::ports[2][2];
+
+/*
+04-05 mBot sonrie
+*/
+
+
+
+/***   Setup  ***/void setup(){
+pinMode(sensor_de_sonido, INPUT);
+pinMode(siguelineas_1 , INPUT);
+pinMode(siguelineas_2 , INPUT);
+robot.setup();
+MatrizLEDS.setup();
+MatrizLEDS.setBrightness(6);
+MatrizLEDS.setColorIndex(1);
+ultrasonidos.setup();
+
+}
+
+
+/***   Loop  ***/void loop(){MatrizLEDS.draw(0x0,0x0,0x0,0x2,0x2,0x3,0x43,0xc3,0xc3,0x43,0x3,0x2,0x2,0x0,0x0,0x0);
+while (ultrasonidos.readDistanceInCM() > 30){}
+MatrizLEDS.draw(0x0,0x0,0x0,0x6,0x6,0x5,0x45,0xc5,0xc5,0x45,0x5,0x6,0x6,0x0,0x0,0x0);
+delay(100);
+MatrizLEDS.draw(0x0,0x0,0xc,0xa,0xa,0x9,0x49,0xc9,0xc9,0x49,0x9,0xa,0xa,0xc,0x0,0x0);
+delay(100);
+MatrizLEDS.draw(0x0,0x18,0x14,0x12,0xa,0x9,0x49,0xc9,0xc9,0x49,0x9,0xa,0x12,0x14,0x18,0x0);
+delay(1000);
+}
+
+
+
+
